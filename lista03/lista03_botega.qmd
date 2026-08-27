@@ -1,0 +1,278 @@
+---
+title: "Lista III"
+author: "Bento Rabello Botega (186461)"
+format: pdf
+---
+
+## Inicialização
+
+```{r}
+library(DBI)
+library(RSQLite)
+
+con <- dbConnect(RSQLite::SQLite(), "../datasets/me315.sqlite")
+```
+
+## Respostas aula
+
+### 1.
+
+```{sql connection=con}
+SELECT FEE FROM PRESERVE
+```
+
+> Sim. Especialmente é visível diversos valores 0 na tabela apresentada.
+
+### 2.
+
+```{sql connection=con}
+SELECT ACRES FROM PRESERVE
+```
+
+> Sim. O número de acres não é algo único e pode ser repetido.
+
+### 3.
+
+```{sql connection=con}
+SELECT DISTINCT FEE FROM PRESERVE
+```
+
+```{sql connection=con}
+SELECT DISTINCT ACRES FROM PRESERVE
+```
+
+### 4.
+
+```{sql connection=con}
+SELECT DISTINCT FEE, ACRES FROM PRESERVE
+```
+
+### 5.
+
+```{sql connection=con}
+SELECT PNO FROM PRESERVE
+```
+
+```{sql connection=con}
+SELECT DISTINCT PNO FROM PRESERVE
+```
+
+> Não há diferença, pois o número da área de preservação é uma chave única.
+
+### 6.
+
+```{sql connection=con}
+SELECT * FROM PRESERVE WHERE STATE = 'AZ' AND FEE = 0
+```
+
+### 7.
+
+```{sql connection=con}
+SELECT * FROM PRESERVE WHERE STATE = 'AZ' OR FEE = 0
+```
+
+### 8.
+
+```{sql connection=con}
+SELECT PNO, PNAME, ACRES FROM PRESERVE WHERE ACRES > 90 AND ACRES < 1200
+```
+
+### 9.
+
+```{sql connection=con}
+SELECT PNO, PNAME, FEE, ACRES
+FROM PRESERVE
+WHERE STATE = 'AZ' AND NOT FEE = 0 AND ACRES >= 660 AND ACRES <= 1200
+```
+
+### 10
+
+```{sql connection=con}
+SELECT PNO, PNAME, STATE
+FROM PRESERVE
+WHERE STATE = 'AZ' OR STATE = 'MT'
+```
+
+### 11.
+
+```{sql connection=con}
+SELECT PNO, PNAME
+FROM PRESERVE
+WHERE PNO IN (3, 4, 7, 12, 40)
+```
+
+### 12.
+
+```{sql connection=con}
+SELECT PNAME, STATE
+FROM PRESERVE
+WHERE NOT STATE = 'MA'
+```
+
+### 13.
+
+```{sql connection=con}
+SELECT PNAME, STATE, FEE, ACRES
+FROM PRESERVE
+WHERE (ACRES > 1000 OR STATE = 'AZ') AND FEE = 3
+```
+
+### 14.
+
+```{sql connection=con}
+SELECT PNAME, STATE, FEE, ACRES
+FROM PRESERVE
+WHERE ACRES > 1000 OR (STATE = 'AZ' AND FEE = 3)
+```
+
+### 15.
+
+```{sql connection=con}
+SELECT PNO, STATE, FEE
+FROM PRESERVE
+WHERE NOT (STATE = 'AZ' AND FEE = 3)
+```
+
+### 16.
+
+```{sql connection=con}
+SELECT PNAME, STATE, FEE, ACRES
+FROM PRESERVE
+WHERE ACRES < 50 OR (FEE = 3 AND NOT STATE = 'MA')
+```
+
+## Respostas hands-on
+
+### 1.
+
+```{sql connection=con}
+SELECT DISTINCT STATE, FEE
+FROM PRESERVE
+```
+
+### 2.
+
+```{sql connection=con}
+SELECT DISTINCT DNO
+FROM EMPLOYEE
+```
+
+### 3.
+
+```{sql connection=con}
+SELECT DNO, SALARY FROM EMPLOYEE
+```
+
+```{sql connection=con}
+SELECT DISTINCT DNO, SALARY FROM EMPLOYEE
+```
+
+```{sql connection=con}
+SELECT DISTINCT DNO, SALARY FROM EMPLOYEE ORDER BY DNO, SALARY
+```
+
+> Como tanto com ou sem `DISTINCT` o número de linhas é 6, é possível assumir que não há salários repetidos nos departamentos. A última tabela está ordenada.
+
+### 4.
+
+```{sql connection=con}
+SELECT *
+FROM PRESERVE
+WHERE STATE = 'MT' AND ACRES < 1000
+```
+
+### 5.
+
+```{sql connection=con}
+SELECT *
+FROM PRESERVE
+WHERE ACRES >= 1200 AND ACRES <= 15000
+```
+
+### 6.
+
+```{sql connection=con}
+SELECT *
+FROM PRESERVE
+WHERE STATE = 'MT' AND FEE = 0 AND ACRES < 10000
+```
+
+### 7.
+
+```{sql connection=con}
+SELECT *
+FROM PRESERVE
+WHERE STATE IN ('MT', 'MA')
+```
+
+### 8.
+
+```{sql connection=con}
+SELECT *
+FROM PRESERVE
+WHERE STATE = 'MT' OR ACRES < 1000
+```
+
+### 9.
+
+```{sql connection=con}
+SELECT PNO, PNAME
+FROM PRESERVE
+WHERE NOT FEE = 0
+```
+
+### 10.
+
+```{sql connection=con}
+SELECT PNO, PNAME
+FROM PRESERVE
+WHERE NOT FEE = 3 AND NOT FEE = 10
+```
+
+### 11.
+
+```{sql connection=con}
+SELECT *
+FROM PRESERVE
+WHERE STATE = 'AZ' AND FEE = 0 OR ACRES < 100
+```
+
+### 12.
+
+```{sql connection=con}
+SELECT *
+FROM PRESERVE
+WHERE ACRES < 1000 AND FEE = 0 OR STATE = 'AZ' 
+```
+
+### 13.
+
+```{sql connection=con}
+SELECT *
+FROM PRESERVE
+WHERE FEE > 0 OR (STATE = 'MT' AND ACRES > 1000)
+```
+
+### 14.
+
+```{sql connection=con}
+SELECT *
+FROM PRESERVE
+WHERE NOT (STATE = 'MT' AND FEE = 0)
+```
+
+### 15.
+
+> Sim, pois o operador `AND` é distributível sobre o `OR`.
+
+### 16.
+
+> Sim, também é distributível pela ordem contrária.
+
+### 17.
+
+> Não, a negação de um `AND` é o `OR` das negações, não `AND` das negações como segunda linha faz. Primeira e terceira linhas, são iguais, mas diferentes da segunda.
+
+### 18.
+
+> Não, mesmo caso do item 17. Primeira e terceira linhas, são iguais, mas diferentes da segunda.
