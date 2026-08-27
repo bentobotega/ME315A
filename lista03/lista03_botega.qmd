@@ -276,3 +276,11 @@ WHERE NOT (STATE = 'MT' AND FEE = 0)
 ### 18.
 
 > Não, mesmo caso do item 17. Primeira e terceira linhas, são iguais, mas diferentes da segunda.
+
+## Momento de compilação
+
+```{r}
+Sys.setenv(TZ = "America/Sao_Paulo")
+Sys.time()
+```
+
