@@ -1,0 +1,105 @@
+---
+title: "Laboratório III"
+author: "Bento Rabello Botega (186461)"
+format: html
+---
+
+## Inicialização
+```{r}
+#| message: FALSE
+library(tidyverse)
+library(leaflet)
+```
+
+## Respostas
+
+### 1.
+
+```{r}
+airlines <- read_csv("../datasets/airlines.csv", show_col_types = FALSE)
+
+airports <- read_csv(
+  "../datasets/airports.csv",
+  col_select = c("IATA_CODE", "CITY", "STATE", "LATITUDE", "LONGITUDE"),
+  show_col_types = FALSE
+)
+
+process_chunk <- function(chunk, pos) {
+  chunk |>
+    drop_na() |>
+    filter(!str_starts(DESTINATION_AIRPORT, "1")) |>
+    group_by(DESTINATION_AIRPORT) |>
+    summarize(
+      chunk_delay = sum(ARRIVAL_DELAY),
+      chunk_n = n(),
+      .groups = "drop"
+    )
+}
+
+chunks <- read_csv_chunked(
+  file = "../datasets/flights.csv",
+  callback = DataFrameCallback$new(process_chunk),
+  chunk_size = 1000000,
+  col_types = cols_only(
+    DESTINATION_AIRPORT = col_character(),
+    ARRIVAL_DELAY = col_double()
+  )
+)
+
+flights <- chunks |>
+  group_by(DESTINATION_AIRPORT) |>
+  summarize(
+    mean_delay = sum(chunk_delay)/sum(chunk_n),
+    .groups = "drop"
+  )
+
+rm(chunks)
+gc()
+```
+
+### 2.
+
+```{r}
+anti_join(flights, airports, by=c("DESTINATION_AIRPORT" = "IATA_CODE")) # Vázio. Não há aeroporto em `flights` filtrado que não esteja especificado em `airports`.
+
+flights <- left_join(flights, airports, by=c("DESTINATION_AIRPORT" = "IATA_CODE")) # Chaves para as duas tabelas especificadas no `by`.
+flights |> head()
+```
+
+### 3.
+
+```{r}
+airports |>
+  group_by(STATE) |>
+  summarize(
+    n_airport = n(),
+    .groups = "drop"
+  ) |>
+  arrange(desc(n_airport))
+```
+
+### 4.
+```{r}
+this <- flights |>
+  drop_na(LATITUDE, LONGITUDE) |>
+  leaflet() |>
+  addTiles() |>
+  addMarkers(
+    lng = ~LONGITUDE,
+    lat = ~LATITUDE,
+    popup = ~paste0(
+      DESTINATION_AIRPORT, " (", CITY, "-", STATE, ")<br>",
+      "Mean arrival delay: ", round(mean_delay, 2), " min"
+    )
+  )
+this
+```
+
+
+## Momento de compilação
+
+```{r}
+Sys.setenv(TZ = "America/Sao_Paulo")
+Sys.time()
+```
+

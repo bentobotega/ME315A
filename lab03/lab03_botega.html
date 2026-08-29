@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Bento Rabello Botega (186461)">
+
+<title>Laboratório III</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="lab03_botega_files/libs/clipboard/clipboard.min.js"></script>
+<script src="lab03_botega_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="lab03_botega_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="lab03_botega_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="lab03_botega_files/libs/quarto-html/popper.min.js"></script>
+<script src="lab03_botega_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="lab03_botega_files/libs/quarto-html/anchor.min.js"></script>
+<link href="lab03_botega_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="lab03_botega_files/libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="lab03_botega_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="lab03_botega_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="lab03_botega_files/libs/bootstrap/bootstrap-6a8e6d95bfcd174082ff54166b04dcf7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="lab03_botega_files/libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet">
+<script src="lab03_botega_files/libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="lab03_botega_files/libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<link href="lab03_botega_files/libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="lab03_botega_files/libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="lab03_botega_files/libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+<script src="lab03_botega_files/libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="lab03_botega_files/libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="lab03_botega_files/libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+<script src="lab03_botega_files/libs/leaflet-binding-2.2.3/leaflet.js"></script>
+
+
+</head>
+
+<body class="fullcontent quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Laboratório III</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Bento Rabello Botega (186461) </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="inicialização" class="level2">
+<h2 class="anchored" data-anchor-id="inicialização">Inicialização</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(leaflet)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="respostas" class="level2">
+<h2 class="anchored" data-anchor-id="respostas">Respostas</h2>
+<section id="section" class="level3">
+<h3 class="anchored" data-anchor-id="section">1.</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>airlines <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"../datasets/airlines.csv"</span>, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>airports <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"../datasets/airports.csv"</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_select =</span> <span class="fu">c</span>(<span class="st">"IATA_CODE"</span>, <span class="st">"CITY"</span>, <span class="st">"STATE"</span>, <span class="st">"LATITUDE"</span>, <span class="st">"LONGITUDE"</span>),</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">show_col_types =</span> <span class="cn">FALSE</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>process_chunk <span class="ot">&lt;-</span> <span class="cf">function</span>(chunk, pos) {</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  chunk <span class="sc">|&gt;</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>() <span class="sc">|&gt;</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">str_starts</span>(DESTINATION_AIRPORT, <span class="st">"1"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(DESTINATION_AIRPORT) <span class="sc">|&gt;</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">chunk_delay =</span> <span class="fu">sum</span>(ARRIVAL_DELAY),</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">chunk_n =</span> <span class="fu">n</span>(),</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>      <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>chunks <span class="ot">&lt;-</span> <span class="fu">read_csv_chunked</span>(</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">file =</span> <span class="st">"../datasets/flights.csv"</span>,</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">callback =</span> DataFrameCallback<span class="sc">$</span><span class="fu">new</span>(process_chunk),</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">chunk_size =</span> <span class="dv">1000000</span>,</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_types =</span> <span class="fu">cols_only</span>(</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">DESTINATION_AIRPORT =</span> <span class="fu">col_character</span>(),</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">ARRIVAL_DELAY =</span> <span class="fu">col_double</span>()</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>flights <span class="ot">&lt;-</span> chunks <span class="sc">|&gt;</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(DESTINATION_AIRPORT) <span class="sc">|&gt;</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_delay =</span> <span class="fu">sum</span>(chunk_delay)<span class="sc">/</span><span class="fu">sum</span>(chunk_n),</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(chunks)</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="fu">gc</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          used (Mb) gc trigger  (Mb) max used  (Mb)
+Ncells 1361878 72.8    2505377 133.9  2505377 133.9
+Vcells 2372629 18.2   12715428  97.1 15894284 121.3</code></pre>
+</div>
+</div>
+</section>
+<section id="section-1" class="level3">
+<h3 class="anchored" data-anchor-id="section-1">2.</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anti_join</span>(flights, airports, <span class="at">by=</span><span class="fu">c</span>(<span class="st">"DESTINATION_AIRPORT"</span> <span class="ot">=</span> <span class="st">"IATA_CODE"</span>)) <span class="co"># Vázio. Não há aeroporto em `flights` filtrado que não esteja especificado em `airports`.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 0 × 2
+# ℹ 2 variables: DESTINATION_AIRPORT &lt;chr&gt;, mean_delay &lt;dbl&gt;</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>flights <span class="ot">&lt;-</span> <span class="fu">left_join</span>(flights, airports, <span class="at">by=</span><span class="fu">c</span>(<span class="st">"DESTINATION_AIRPORT"</span> <span class="ot">=</span> <span class="st">"IATA_CODE"</span>)) <span class="co"># Chaves para as duas tabelas especificadas no `by`.</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>flights <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 6
+  DESTINATION_AIRPORT mean_delay CITY        STATE LATITUDE LONGITUDE
+  &lt;chr&gt;                    &lt;dbl&gt; &lt;chr&gt;       &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1 ABE                       5.80 Allentown   PA        40.7     -75.4
+2 ABI                       4.08 Abilene     TX        32.4     -99.7
+3 ABQ                       5.61 Albuquerque NM        35.0    -107. 
+4 ABR                      -3.39 Aberdeen    SD        45.4     -98.4
+5 ABY                       8.68 Albany      GA        31.5     -84.2
+6 ACK                       4.91 Nantucket   MA        41.3     -70.1</code></pre>
+</div>
+</div>
+</section>
+<section id="section-2" class="level3">
+<h3 class="anchored" data-anchor-id="section-2">3.</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>airports <span class="sc">|&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(STATE) <span class="sc">|&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">n_airport =</span> <span class="fu">n</span>(),</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n_airport))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 54 × 2
+   STATE n_airport
+   &lt;chr&gt;     &lt;int&gt;
+ 1 TX           24
+ 2 CA           22
+ 3 AK           19
+ 4 FL           17
+ 5 MI           15
+ 6 NY           14
+ 7 CO           10
+ 8 MN            8
+ 9 MT            8
+10 NC            8
+# ℹ 44 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="section-3" class="level3">
+<h3 class="anchored" data-anchor-id="section-3">4.</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>this <span class="ot">&lt;-</span> flights <span class="sc">|&gt;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(LATITUDE, LONGITUDE) <span class="sc">|&gt;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">leaflet</span>() <span class="sc">|&gt;</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addTiles</span>() <span class="sc">|&gt;</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addMarkers</span>(</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">lng =</span> <span class="sc">~</span>LONGITUDE,</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">lat =</span> <span class="sc">~</span>LATITUDE,</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">popup =</span> <span class="sc">~</span><span class="fu">paste0</span>(</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>      DESTINATION_AIRPORT, <span class="st">" ("</span>, CITY, <span class="st">"-"</span>, STATE, <span class="st">")&lt;br&gt;"</span>,</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Mean arrival delay: "</span>, <span class="fu">round</span>(mean_delay, <span class="dv">2</span>), <span class="st">" min"</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>this</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="leaflet html-widget html-fill-item" id="htmlwidget-bcce41f68cd3286fcd32" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-bcce41f68cd3286fcd32">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addMarkers","args":[[40.65236,32.41132,35.04022,45.44906,31.53552,41.25305,31.61129,40.97812,39.45758,51.87796,57.74997,31.32737,33.36996,58.6768,42.74812,42.55708,35.21937,61.17432,45.07807,39.22316,33.64044,44.25741,30.19453,35.43619,41.33815,42.23488,41.93887,60.77978,35.4336,42.20848,44.80744,33.56294,45.80766,46.77411,47.50942,48.79275,40.47799,36.12448,43.56444,42.36435,29.95083,31.25903,18.49486,46.39786,25.90683,71.28545,45.9548,30.53316,44.473,42.94052,34.20062,39.1754,45.7769,33.93884,40.91631,37.70097,60.49183,41.78016,35.03527,38.13864,32.89865,41.88459,46.25075,33.12723,41.41089,30.58859,35.21401,39.99799,40.03925,47.16842,38.75496,44.52019,38.80581,38.81809,42.90836,27.77036,38.37315,32.51633,39.04614,44.77762,29.17992,32.84711,39.90238,42.40296,38.85208,39.85841,32.89595,31.32134,46.79739,59.04541,46.84209,37.15152,41.53493,42.21206,48.11425,44.86526,39.64257,40.82493,42.15991,31.80667,42.08202,45.72267,44.12326,38.03799,35.07297,40.6925,24.55611,64.81368000000001,46.91935,36.77619,34.99147,48.3114,35.13845,26.07258,42.9655,43.58135,35.33659,40.97847,44.3489,37.92752,47.61986,47.94926,32.38486,39.12241,29.69006,30.40728,44.48507,40.96747,31.0649,42.88082,36.09775,34.89567,58.42438,47.482,33.45033,38.53396,13.48345,40.48118,47.3866,46.60682,21.31869,32.68753,29.64542,41.06696,26.22851,34.64045,41.66934,38.84494,38.94453,43.10726,29.98047,37.64996,43.51456,39.67872,34.27061,45.81835,39.71733,48.56619,48.17794,40.79524,42.49103,19.72026,43.60732,32.31117,30.49406,40.63975,37.15181,46.92972,58.35496,19.73877,55.35557,42.7787,41.31205,36.08036,34.56771,33.94254,33.66364,40.27594,30.1261,38.03697,30.20528,40.77724,33.81772,21.97598,34.7294,40.85097,27.54374,43.87938,46.3745,31.94253,43.53291,39.29761,28.42889,40.1935,41.78598,32.33313,35.04242,26.17583,42.37423,32.30064,39.14097,42.93452,25.79325,42.94722,43.16949,28.10275,41.44853,32.51087,37.62405,30.69142,48.25938,46.35364,36.58698,43.13986,46.91631,44.88055,29.99339,38.50887,41.39303,33.67975,34.82916,37.72129,20.89865,35.39309,41.30252,64.51220000000001,34.056,41.9796,36.89461,42.26734,43.41714,66.88468,37.06083,26.68316,45.58872,37.1319,39.87195,33.43417,40.66424,31.46715,42.91131,40.49147,45.57093,30.47331,14.33102,46.26468,18.0083,56.80165,33.82922,38.28909,41.724,43.64617,44.04532,40.50898,44.25407,35.87764,45.63119,37.50517,41.59422,39.49858,37.32547,43.11887,33.30156,43.90883,26.53617,35.61678,32.73356,29.53369,32.12758,34.42621,41.70895,35.23706,70.19476,40.85121,38.17439,47.44898,37.619,37.24433,37.09058,32.44663,57.04714,37.36186,31.35775,18.43942,40.78839,38.69542,34.89925,33.67566,39.84395,33.9888,27.39533,45.54532,38.74769,18.33731,17.70189,43.50484,42.4026,41.50409,43.11119,30.39653,41.58681,27.97547,36.47521,40.27669,36.19837,32.11608,44.74144,42.4818,33.45371,32.35414,35.81249,40.4409,30.7825,30.48325,56.48433,44.6884,36.28187,59.50336,32.65658],[-75.4404,-99.6819,-106.60919,-98.42183,-84.19447,-70.06018,-97.23052,-124.10862,-74.57717,-176.64603,-152.49386,-92.54855999999999,-81.9645,-156.64922,-73.80298000000001,-92.40034,-101.70593,-149.99619,-83.56028999999999,-106.86885,-84.42694,-88.51948,-97.66987,-82.54181,-75.72427,-85.55206,-72.68322999999999,-161.838,-119.05677,-75.97960999999999,-68.82814,-86.75355,-108.54286,-100.74672,-94.93371999999999,-122.53753,-88.91595,-86.67818,-116.22278,-71.00518,-94.02069,-81.46630999999999,-67.12944,-94.13723,-97.42586,-156.766,-112.49746,-91.14963,-73.15031,-78.73217,-118.3585,-76.6682,-111.15301,-81.11954,-81.44247,-113.09858,-145.47765,-124.23653,-85.20379,-78.45286,-80.04051,-91.71087,-84.47239,-117.27873,-81.8494,-96.36382,-80.94313,-82.89188,-88.27806,-88.48905999999999,-109.75484,-109.0238,-104.70025,-92.21963,-106.46447,-97.50122,-81.59319000000001,-84.93886000000001,-84.66217,-89.66678,-81.05806,-96.85177,-84.21938,-90.70917,-77.03771999999999,-104.667,-97.0372,-85.44963,-102.80195,-158.50334,-92.19365000000001,-107.75377,-93.66068,-83.34884,-98.90877999999999,-91.48506999999999,-106.9177,-115.7917,-76.89144,-106.37781,-80.17622,-87.09372999999999,-123.21869,-87.53063,-77.04294,-74.16866,-81.75955999999999,-147.85967,-96.81498999999999,-119.71814,-78.88,-114.25507,-111.67122,-80.15275,-83.74346,-96.74169999999999,-94.36744,-85.19515,-105.53936,-100.72441,-117.53384,-97.17610999999999,-94.71171,-108.52673,-82.27178000000001,-89.07008999999999,-88.12958999999999,-98.30861,-97.8278,-85.52276999999999,-79.93729999999999,-82.21886000000001,-135.70738,-111.37069,-88.59137,-106.93318,-144.79598,-107.21766,-92.83899,-111.98275,-157.92241,-103.21703,-95.27889,-73.70757,-97.65439000000001,-86.77311,-70.28036,-99.27403,-77.45581,-78.94538,-95.33972,-97.43304999999999,-112.07017,-75.60653000000001,-77.90255999999999,-88.11454000000001,-86.29438,-93.40307,-103.64235,-73.10021,-76.45844,-155.04847,-110.73774,-90.07589,-81.68786,-73.77893,-94.49827000000001,-98.6782,-134.57628,-156.04563,-131.71374,-84.58736,-105.67499,-115.15233,-98.41664,-118.40807,-101.82278,-79.40479999999999,-93.2234,-84.60539,-91.98766000000001,-73.87260999999999,-118.15161,-159.33896,-92.22425,-96.75924999999999,-99.46154,-91.25654,-117.01539,-102.20191,-84.07965,-94.71391,-81.31603,-76.7634,-87.75242,-88.75121,-89.97667,-98.23860999999999,-122.8735,-86.39398,-96.67083,-71.43706,-80.29056,-87.89658,-86.23822,-80.64581,-90.50754000000001,-92.03769,-118.83777,-88.24283,-101.28033,-87.39536,-121.84295,-89.33750999999999,-114.09056,-93.21692,-90.25803000000001,-107.89383,-70.61433,-78.92833,-77.61214,-122.22072,-156.43046,-97.60073,-95.89417,-165.44525,-117.60119,-87.90446,-76.20122000000001,-71.87571,-124.24603,-162.59855,-88.77375000000001,-80.09559,-122.5975,-76.49299000000001,-75.24114,-112.00806,-89.69331,-89.33705999999999,-112.59586,-80.23287000000001,-84.79671999999999,-87.18744,-170.71053,-119.11903,-66.56301000000001,-132.94528,-116.50625,-104.49657,-71.42822,-70.30875,-103.05737,-122.2934,-121.14996,-78.78747,-89.46745,-77.31967,-109.06519,-119.76806,-79.97543,-77.67238,-104.53056,-92.49799,-81.75517000000001,-106.08814,-117.18966,-98.46978,-81.20214,-119.84037,-86.31847,-120.64239,-148.46516,-77.8463,-85.736,-122.30931,-122.37484,-93.38686,-113.59306,-93.82559999999999,-135.3616,-121.92901,-100.49631,-66.00183,-111.97777,-121.59077,-120.45758,-117.86822,-89.67762,-98.49189,-82.55410999999999,-94.05834,-90.35999,-64.97336,-64.79855999999999,-114.29659,-96.38437,-74.10484,-76.10630999999999,-84.35033,-83.80783,-82.53325,-82.40742,-74.81347,-95.88824,-110.94103,-85.58224,-114.48774,-93.99102000000001,-95.40239,-83.99285999999999,-109.50992,-83.27672,-86.5254,-132.36982,-111.11764,-94.30681,-139.66023,-114.60597],null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},["ABE (Allentown-PA)<br>Mean arrival delay: 5.8 min","ABI (Abilene-TX)<br>Mean arrival delay: 4.08 min","ABQ (Albuquerque-NM)<br>Mean arrival delay: 5.61 min","ABR (Aberdeen-SD)<br>Mean arrival delay: -3.39 min","ABY (Albany-GA)<br>Mean arrival delay: 8.68 min","ACK (Nantucket-MA)<br>Mean arrival delay: 4.91 min","ACT (Waco-TX)<br>Mean arrival delay: 10.64 min","ACV (Arcata/Eureka-CA)<br>Mean arrival delay: 9.68 min","ACY (Atlantic City-NJ)<br>Mean arrival delay: 11.83 min","ADK (Adak-AK)<br>Mean arrival delay: -3.19 min","ADQ (Kodiak-AK)<br>Mean arrival delay: -0.67 min","AEX (Alexandria-LA)<br>Mean arrival delay: 6.23 min","AGS (Augusta-GA)<br>Mean arrival delay: 6.37 min","AKN (King Salmon-AK)<br>Mean arrival delay: 2.38 min","ALB (Albany-NY)<br>Mean arrival delay: 6.58 min","ALO (Waterloo-IA)<br>Mean arrival delay: 5.95 min","AMA (Amarillo-TX)<br>Mean arrival delay: 6.67 min","ANC (Anchorage-AK)<br>Mean arrival delay: 1.78 min","APN (Alpena-MI)<br>Mean arrival delay: 1.6 min","ASE (Aspen-CO)<br>Mean arrival delay: 15.83 min","ATL (Atlanta-GA)<br>Mean arrival delay: 2.23 min","ATW (Appleton-WI)<br>Mean arrival delay: 3.57 min","AUS (Austin-TX)<br>Mean arrival delay: 6.72 min","AVL (Asheville-NC)<br>Mean arrival delay: 6.5 min","AVP (Wilkes-Barre/Scranton-PA)<br>Mean arrival delay: 9.8 min","AZO (Kalamazoo-MI)<br>Mean arrival delay: 1.26 min","BDL (Windsor Locks-CT)<br>Mean arrival delay: 6.6 min","BET (Bethel-AK)<br>Mean arrival delay: 2.78 min","BFL (Bakersfield-CA)<br>Mean arrival delay: 5.5 min","BGM (Binghamton-NY)<br>Mean arrival delay: 4.21 min","BGR (Bangor-ME)<br>Mean arrival delay: 2.22 min","BHM (Birmingham-AL)<br>Mean arrival delay: 5.61 min","BIL (Billings-MT)<br>Mean arrival delay: 1.78 min","BIS (Bismarck-ND)<br>Mean arrival delay: 4.82 min","BJI (Bemidji-MN)<br>Mean arrival delay: -1.8 min","BLI (Bellingham-WA)<br>Mean arrival delay: -6.8 min","BMI (Bloomington-IL)<br>Mean arrival delay: 7.24 min","BNA (Nashville-TN)<br>Mean arrival delay: 4.32 min","BOI (Boise-ID)<br>Mean arrival delay: 5.96 min","BOS (Boston-MA)<br>Mean arrival delay: 6.25 min","BPT (Beaumont/Port Arthur-TX)<br>Mean arrival delay: 14.63 min","BQK (Brunswick-GA)<br>Mean arrival delay: 5.87 min","BQN (Aguadilla-PR)<br>Mean arrival delay: 12.19 min","BRD (Brainerd-MN)<br>Mean arrival delay: -3.62 min","BRO (Brownsville-TX)<br>Mean arrival delay: 4.47 min","BRW (Barrow-AK)<br>Mean arrival delay: 4.06 min","BTM (Butte-MT)<br>Mean arrival delay: -3.96 min","BTR (Baton Rouge-LA)<br>Mean arrival delay: 9.06 min","BTV (Burlington-VT)<br>Mean arrival delay: 8.93 min","BUF (Buffalo-NY)<br>Mean arrival delay: 5.39 min","BUR (Burbank-CA)<br>Mean arrival delay: 4.59 min","BWI (Baltimore-MD)<br>Mean arrival delay: 3.6 min","BZN (Bozeman-MT)<br>Mean arrival delay: 2.72 min","CAE (Columbia-SC)<br>Mean arrival delay: 9.46 min","CAK (Akron-OH)<br>Mean arrival delay: 5.1 min","CDC (Cedar City-UT)<br>Mean arrival delay: 7.28 min","CDV (Cordova-AK)<br>Mean arrival delay: 0.89 min","CEC (Crescent City-CA)<br>Mean arrival delay: 4.28 min","CHA (Chattanooga-TN)<br>Mean arrival delay: 6.23 min","CHO (Charlottesville-VA)<br>Mean arrival delay: 10.73 min","CHS (Charleston-SC)<br>Mean arrival delay: 4.04 min","CID (Cedar Rapids-IA)<br>Mean arrival delay: 7.46 min","CIU (Sault Ste. Marie-MI)<br>Mean arrival delay: 5.62 min","CLD (San Diego-CA)<br>Mean arrival delay: 4.39 min","CLE (Cleveland-OH)<br>Mean arrival delay: 4.57 min","CLL (College Station-TX)<br>Mean arrival delay: 1.61 min","CLT (Charlotte-NC)<br>Mean arrival delay: 2.07 min","CMH (Columbus-OH)<br>Mean arrival delay: 5.28 min","CMI (Champaign/Urbana-IL)<br>Mean arrival delay: 3.66 min","CMX (Hancock-MI)<br>Mean arrival delay: 4.2 min","CNY (Moab-UT)<br>Mean arrival delay: -11.58 min","COD (Cody-WY)<br>Mean arrival delay: 4.19 min","COS (Colorado Springs-CO)<br>Mean arrival delay: 10.17 min","COU (Columbia-MO)<br>Mean arrival delay: 10.82 min","CPR (Casper-WY)<br>Mean arrival delay: -0.83 min","CRP (Corpus Christi-TX)<br>Mean arrival delay: 9.12 min","CRW (Charleston-WV)<br>Mean arrival delay: 8.05 min","CSG (Columbus-GA)<br>Mean arrival delay: 8.42 min","CVG (Covington-KY)<br>Mean arrival delay: 6.19 min","CWA (Mosinee-WI)<br>Mean arrival delay: 8.33 min","DAB (Daytona Beach-FL)<br>Mean arrival delay: 2.05 min","DAL (Dallas-TX)<br>Mean arrival delay: 4.07 min","DAY (Dayton-OH)<br>Mean arrival delay: 5.63 min","DBQ (Dubuque-IA)<br>Mean arrival delay: 3.37 min","DCA (Arlington-VA)<br>Mean arrival delay: 4.06 min","DEN (Denver-CO)<br>Mean arrival delay: 5.08 min","DFW (Dallas-Fort Worth-TX)<br>Mean arrival delay: 5.87 min","DHN (Dothan-AL)<br>Mean arrival delay: 5.74 min","DIK (Dickinson-ND)<br>Mean arrival delay: -2.85 min","DLG (Dillingham-AK)<br>Mean arrival delay: -4.19 min","DLH (Duluth-MN)<br>Mean arrival delay: 4.31 min","DRO (Durango-CO)<br>Mean arrival delay: 1.68 min","DSM (Des Moines-IA)<br>Mean arrival delay: 7.43 min","DTW (Detroit-MI)<br>Mean arrival delay: 3.71 min","DVL (Devils Lake-ND)<br>Mean arrival delay: -0.33 min","EAU (Eau Claire-WI)<br>Mean arrival delay: 6.97 min","EGE (Eagle-CO)<br>Mean arrival delay: 10.15 min","EKO (Elko-NV)<br>Mean arrival delay: 1.35 min","ELM (Elmira-NY)<br>Mean arrival delay: 7.58 min","ELP (El Paso-TX)<br>Mean arrival delay: 7.23 min","ERI (Erie-PA)<br>Mean arrival delay: 5.74 min","ESC (Escanaba-MI)<br>Mean arrival delay: 1.16 min","EUG (Eugene-OR)<br>Mean arrival delay: 4.61 min","EVV (Evansville-IN)<br>Mean arrival delay: 2.79 min","EWN (New Bern-NC)<br>Mean arrival delay: 8.27 min","EWR (Newark-NJ)<br>Mean arrival delay: 7.46 min","EYW (Key West-FL)<br>Mean arrival delay: 5.56 min","FAI (Fairbanks-AK)<br>Mean arrival delay: 2.09 min","FAR (Fargo-ND)<br>Mean arrival delay: 5.87 min","FAT (Fresno-CA)<br>Mean arrival delay: 7.61 min","FAY (Fayetteville-NC)<br>Mean arrival delay: 5.41 min","FCA (Kalispell-MT)<br>Mean arrival delay: 1.28 min","FLG (Flagstaff-AZ)<br>Mean arrival delay: 5.2 min","FLL (Ft. Lauderdale-FL)<br>Mean arrival delay: 5.57 min","FNT (Flint-MI)<br>Mean arrival delay: 4.43 min","FSD (Sioux Falls-SD)<br>Mean arrival delay: 9.04 min","FSM (Fort Smith-AR)<br>Mean arrival delay: 10.31 min","FWA (Fort Wayne-IN)<br>Mean arrival delay: 5.58 min","GCC (Gillette-WY)<br>Mean arrival delay: -2.73 min","GCK (Garden City-KS)<br>Mean arrival delay: 4.87 min","GEG (Spokane-WA)<br>Mean arrival delay: 3.44 min","GFK (Grand Forks-ND)<br>Mean arrival delay: 2.4 min","GGG (Longview-TX)<br>Mean arrival delay: 4.04 min","GJT (Grand Junction-CO)<br>Mean arrival delay: 2.17 min","GNV (Gainesville-FL)<br>Mean arrival delay: 8.26 min","GPT (Gulfport-Biloxi-MS)<br>Mean arrival delay: 4.83 min","GRB (Green Bay-WI)<br>Mean arrival delay: 4.25 min","GRI (Grand Island-NE)<br>Mean arrival delay: 1.11 min","GRK (Killeen-TX)<br>Mean arrival delay: 5.7 min","GRR (Grand Rapids-MI)<br>Mean arrival delay: 5.94 min","GSO (Greensboro-NC)<br>Mean arrival delay: 7.04 min","GSP (Greer-SC)<br>Mean arrival delay: 5.35 min","GST (Gustavus-AK)<br>Mean arrival delay: 10.84 min","GTF (Great Falls-MT)<br>Mean arrival delay: 0.19 min","GTR (Columbus-Starkville-West Point-MS)<br>Mean arrival delay: 4.51 min","GUC (Gunnison-CO)<br>Mean arrival delay: 10.59 min","GUM (Agana-GU)<br>Mean arrival delay: 17.32 min","HDN (Hayden-CO)<br>Mean arrival delay: 5.7 min","HIB (Hibbing-MN)<br>Mean arrival delay: -0.02 min","HLN (Helena-MT)<br>Mean arrival delay: -1.15 min","HNL (Honolulu-HI)<br>Mean arrival delay: 4.81 min","HOB (Hobbs-NM)<br>Mean arrival delay: 3.05 min","HOU (Houston-TX)<br>Mean arrival delay: 4.08 min","HPN (White Plains-NY)<br>Mean arrival delay: 8.98 min","HRL (Harlingen-TX)<br>Mean arrival delay: 4.45 min","HSV (Huntsville-AL)<br>Mean arrival delay: 4.61 min","HYA (Hyannis-MA)<br>Mean arrival delay: 3.56 min","HYS (Hays-KS)<br>Mean arrival delay: -3.29 min","IAD (Chantilly-VA)<br>Mean arrival delay: 3.92 min","IAG (Niagara Falls-NY)<br>Mean arrival delay: 9.82 min","IAH (Houston-TX)<br>Mean arrival delay: 5.65 min","ICT (Wichita-KS)<br>Mean arrival delay: 6.62 min","IDA (Idaho Falls-ID)<br>Mean arrival delay: 1.33 min","ILG (Wilmington-DE)<br>Mean arrival delay: 21.99 min","ILM (Wilmington-NC)<br>Mean arrival delay: 4.61 min","IMT (Iron Mountain/Kingsford-MI)<br>Mean arrival delay: -7.6 min","IND (Indianapolis-IN)<br>Mean arrival delay: 4.92 min","INL (International Falls-MN)<br>Mean arrival delay: -5.41 min","ISN (Williston-ND)<br>Mean arrival delay: 0.82 min","ISP (Islip-NY)<br>Mean arrival delay: 9.18 min","ITH (Ithaca-NY)<br>Mean arrival delay: 4.23 min","ITO (Hilo-HI)<br>Mean arrival delay: 1.42 min","JAC (Jackson-WY)<br>Mean arrival delay: 7.23 min","JAN (Jackson-MS)<br>Mean arrival delay: 5.73 min","JAX (Jacksonville-FL)<br>Mean arrival delay: 5.83 min","JFK (New York-NY)<br>Mean arrival delay: 6.7 min","JLN (Joplin-MO)<br>Mean arrival delay: 9.68 min","JMS (Jamestown-ND)<br>Mean arrival delay: 3.6 min","JNU (Juneau-AK)<br>Mean arrival delay: 2.45 min","KOA (Kailua/Kona-HI)<br>Mean arrival delay: 0.25 min","KTN (Ketchikan-AK)<br>Mean arrival delay: 4.37 min","LAN (Lansing-MI)<br>Mean arrival delay: 4.88 min","LAR (Laramie-WY)<br>Mean arrival delay: -1.96 min","LAS (Las Vegas-NV)<br>Mean arrival delay: 3.61 min","LAW (Lawton-OK)<br>Mean arrival delay: 6.77 min","LAX (Los Angeles-CA)<br>Mean arrival delay: 6.11 min","LBB (Lubbock-TX)<br>Mean arrival delay: 8.02 min","LBE (Latrobe-PA)<br>Mean arrival delay: 11.1 min","LCH (Lake Charles-LA)<br>Mean arrival delay: 2.59 min","LEX (Lexington-KY)<br>Mean arrival delay: 4.08 min","LFT (Lafayette-LA)<br>Mean arrival delay: 5.62 min","LGA (New York-NY)<br>Mean arrival delay: 10.4 min","LGB (Long Beach-CA)<br>Mean arrival delay: 3.45 min","LIH (Lihue-HI)<br>Mean arrival delay: 0.37 min","LIT (Little Rock-AR)<br>Mean arrival delay: 6.88 min","LNK (Lincoln-NE)<br>Mean arrival delay: 7.84 min","LRD (Laredo-TX)<br>Mean arrival delay: 3.12 min","LSE (La Crosse-WI)<br>Mean arrival delay: 1.84 min","LWS (Lewiston-ID)<br>Mean arrival delay: -6.54 min","MAF (Midland-TX)<br>Mean arrival delay: 7.73 min","MBS (Saginaw-MI)<br>Mean arrival delay: 6.01 min","MCI (Kansas City-MO)<br>Mean arrival delay: 5.16 min","MCO (Orlando-FL)<br>Mean arrival delay: 5.4 min","MDT (Harrisburg-PA)<br>Mean arrival delay: 4.74 min","MDW (Chicago-IL)<br>Mean arrival delay: 2.99 min","MEI (Meridian-MS)<br>Mean arrival delay: 9.6 min","MEM (Memphis-TN)<br>Mean arrival delay: 5.26 min","MFE (McAllen-TX)<br>Mean arrival delay: 6.89 min","MFR (Medford-OR)<br>Mean arrival delay: 4.74 min","MGM (Montgomery-AL)<br>Mean arrival delay: 8.33 min","MHK (Manhattan-KS)<br>Mean arrival delay: 4.78 min","MHT (Manchester-NH)<br>Mean arrival delay: 7.17 min","MIA (Miami-FL)<br>Mean arrival delay: 5.91 min","MKE (Milwaukee-WI)<br>Mean arrival delay: 3.72 min","MKG (Muskegon-MI)<br>Mean arrival delay: 6.62 min","MLB (Melbourne-FL)<br>Mean arrival delay: 2.76 min","MLI (Moline-IL)<br>Mean arrival delay: 6.81 min","MLU (Monroe-LA)<br>Mean arrival delay: 6.73 min","MMH (Mammoth Lakes-CA)<br>Mean arrival delay: 8.88 min","MOB (Mobile-AL)<br>Mean arrival delay: 7.25 min","MOT (Minot-ND)<br>Mean arrival delay: 4.19 min","MQT (Marquette-MI)<br>Mean arrival delay: 16.15 min","MRY (Monterey-CA)<br>Mean arrival delay: 5.39 min","MSN (Madison-WI)<br>Mean arrival delay: 4.1 min","MSO (Missoula-MT)<br>Mean arrival delay: -0.57 min","MSP (Minneapolis-MN)<br>Mean arrival delay: 3.37 min","MSY (New Orleans-LA)<br>Mean arrival delay: 4.04 min","MTJ (Montrose-CO)<br>Mean arrival delay: 8.69 min","MVY (Marthas Vineyard-MA)<br>Mean arrival delay: 1.79 min","MYR (Myrtle Beach-SC)<br>Mean arrival delay: 7.84 min","OAJ (Jacksonville-NC)<br>Mean arrival delay: 10.03 min","OAK (Oakland-CA)<br>Mean arrival delay: 4.71 min","OGG (Kahului-HI)<br>Mean arrival delay: 2.6 min","OKC (Oklahoma City-OK)<br>Mean arrival delay: 7.23 min","OMA (Omaha-NE)<br>Mean arrival delay: 5.12 min","OME (Nome-AK)<br>Mean arrival delay: 6.32 min","ONT (Ontario-CA)<br>Mean arrival delay: 6.41 min","ORD (Chicago-IL)<br>Mean arrival delay: 7.24 min","ORF (Norfolk-VA)<br>Mean arrival delay: 6.1 min","ORH (Worcester-MA)<br>Mean arrival delay: 0.49 min","OTH (North Bend-OR)<br>Mean arrival delay: 16.74 min","OTZ (Kotzebue-AK)<br>Mean arrival delay: 2.81 min","PAH (Paducah-KY)<br>Mean arrival delay: 6.1 min","PBI (West Palm Beach-FL)<br>Mean arrival delay: 6.87 min","PDX (Portland-OR)<br>Mean arrival delay: 1.67 min","PHF (Newport News-VA)<br>Mean arrival delay: 7.55 min","PHL (Philadelphia-PA)<br>Mean arrival delay: 5.14 min","PHX (Phoenix-AZ)<br>Mean arrival delay: 2.91 min","PIA (Peoria-IL)<br>Mean arrival delay: 3.46 min","PIB (Hattiesburg-Laurel-MS)<br>Mean arrival delay: 4.04 min","PIH (Pocatello-ID)<br>Mean arrival delay: -0.59 min","PIT (Pittsburgh-PA)<br>Mean arrival delay: 4.86 min","PLN (Pellston-MI)<br>Mean arrival delay: 7.12 min","PNS (Pensacola-FL)<br>Mean arrival delay: 5.44 min","PPG (Pago Pago-AS)<br>Mean arrival delay: 7.4 min","PSC (Pasco-WA)<br>Mean arrival delay: 4.19 min","PSE (Ponce-PR)<br>Mean arrival delay: 10.05 min","PSG (Petersburg-AK)<br>Mean arrival delay: 7.22 min","PSP (Palm Springs-CA)<br>Mean arrival delay: 4.3 min","PUB (Pueblo-CO)<br>Mean arrival delay: -0.95 min","PVD (Providence-RI)<br>Mean arrival delay: 6.45 min","PWM (Portland-ME)<br>Mean arrival delay: 7.02 min","RAP (Rapid City-SD)<br>Mean arrival delay: 4.43 min","RDD (Redding-CA)<br>Mean arrival delay: 7.57 min","RDM (Redmond-OR)<br>Mean arrival delay: 2.54 min","RDU (Raleigh-NC)<br>Mean arrival delay: 5.87 min","RHI (Rhinelander-WI)<br>Mean arrival delay: -1.36 min","RIC (Richmond-VA)<br>Mean arrival delay: 7.21 min","RKS (Rock Springs-WY)<br>Mean arrival delay: -3.26 min","RNO (Reno-NV)<br>Mean arrival delay: 5.18 min","ROA (Roanoke-VA)<br>Mean arrival delay: 6.72 min","ROC (Rochester-NY)<br>Mean arrival delay: 4.87 min","ROW (Roswell-NM)<br>Mean arrival delay: 3.82 min","RST (Rochester-MN)<br>Mean arrival delay: 3.76 min","RSW (Ft. Myers-FL)<br>Mean arrival delay: 3.56 min","SAF (Santa Fe-NM)<br>Mean arrival delay: 4.42 min","SAN (San Diego-CA)<br>Mean arrival delay: 3.68 min","SAT (San Antonio-TX)<br>Mean arrival delay: 5.87 min","SAV (Savannah-GA)<br>Mean arrival delay: 5.24 min","SBA (Santa Barbara-CA)<br>Mean arrival delay: 3.99 min","SBN (South Bend-IN)<br>Mean arrival delay: 8.66 min","SBP (San Luis Obispo-CA)<br>Mean arrival delay: 3.58 min","SCC (Deadhorse-AK)<br>Mean arrival delay: 0.48 min","SCE (State College-PA)<br>Mean arrival delay: 10.21 min","SDF (Louisville-KY)<br>Mean arrival delay: 5.64 min","SEA (Seattle-WA)<br>Mean arrival delay: 1.97 min","SFO (San Francisco-CA)<br>Mean arrival delay: 6.58 min","SGF (Springfield-MO)<br>Mean arrival delay: 8.71 min","SGU (St George-UT)<br>Mean arrival delay: 5.23 min","SHV (Shreveport-LA)<br>Mean arrival delay: 7.77 min","SIT (Sitka-AK)<br>Mean arrival delay: 2.11 min","SJC (San Jose-CA)<br>Mean arrival delay: 4.21 min","SJT (San Angelo-TX)<br>Mean arrival delay: 3.44 min","SJU (San Juan-PR)<br>Mean arrival delay: 6.88 min","SLC (Salt Lake City-UT)<br>Mean arrival delay: 0.4 min","SMF (Sacramento-CA)<br>Mean arrival delay: 5.45 min","SMX (Santa Maria-CA)<br>Mean arrival delay: 0.64 min","SNA (Santa Ana-CA)<br>Mean arrival delay: 1.58 min","SPI (Springfield-IL)<br>Mean arrival delay: 8.73 min","SPS (Wichita Falls-TX)<br>Mean arrival delay: 4.95 min","SRQ (Sarasota-FL)<br>Mean arrival delay: 2.51 min","STC (St Cloud-MN)<br>Mean arrival delay: 23.03 min","STL (St Louis-MO)<br>Mean arrival delay: 4.2 min","STT (Charlotte Amalie-VI)<br>Mean arrival delay: 5.59 min","STX (Christiansted-VI)<br>Mean arrival delay: 6.55 min","SUN (Hailey-ID)<br>Mean arrival delay: 3.32 min","SUX (Sioux City-IA)<br>Mean arrival delay: 4.59 min","SWF (Newburgh-NY)<br>Mean arrival delay: 7.09 min","SYR (Syracuse-NY)<br>Mean arrival delay: 6.31 min","TLH (Tallahassee-FL)<br>Mean arrival delay: 5.38 min","TOL (Toledo-OH)<br>Mean arrival delay: 0.19 min","TPA (Tampa-FL)<br>Mean arrival delay: 4.78 min","TRI (Bristol-TN)<br>Mean arrival delay: 2.07 min","TTN (Trenton-NJ)<br>Mean arrival delay: 17.43 min","TUL (Tulsa-OK)<br>Mean arrival delay: 6.6 min","TUS (Tucson-AZ)<br>Mean arrival delay: 6.06 min","TVC (Traverse City-MI)<br>Mean arrival delay: 2.62 min","TWF (Twin Falls-ID)<br>Mean arrival delay: 3.61 min","TXK (Texarkana-AR)<br>Mean arrival delay: 4.77 min","TYR (Tyler-TX)<br>Mean arrival delay: 7.4 min","TYS (Knoxville-TN)<br>Mean arrival delay: 10.61 min","VEL (Vernal-UT)<br>Mean arrival delay: -13.76 min","VLD (Valdosta-GA)<br>Mean arrival delay: 6.95 min","VPS (Valparaiso-FL)<br>Mean arrival delay: 6.36 min","WRG (Wrangell-AK)<br>Mean arrival delay: 5.38 min","WYS (West Yellowstone-MT)<br>Mean arrival delay: 4.19 min","XNA (Fayetteville/Springdale/Rogers-AR)<br>Mean arrival delay: 8.77 min","YAK (Yakutat-AK)<br>Mean arrival delay: 0.37 min","YUM (Yuma-AZ)<br>Mean arrival delay: 3.26 min"],null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[13.48345,71.28545],"lng":[-176.64603,-64.79855999999999]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+</section>
+<section id="momento-de-compilação" class="level2">
+<h2 class="anchored" data-anchor-id="momento-de-compilação">Momento de compilação</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.setenv</span>(<span class="at">TZ =</span> <span class="st">"America/Sao_Paulo"</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.time</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2026-08-29 12:23:25 -03"</code></pre>
+</div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
