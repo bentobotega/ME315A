@@ -1,7 +1,7 @@
 ---
 title: "Laboratório III"
 author: "Bento Rabello Botega (186461)"
-format: html
+format: pdf
 ---
 
 ## Inicialização
@@ -52,9 +52,7 @@ flights <- chunks |>
     mean_delay = sum(chunk_delay)/sum(chunk_n),
     .groups = "drop"
   )
-
-rm(chunks)
-gc()
+flights |> head()
 ```
 
 ### 2.
@@ -92,8 +90,9 @@ this <- flights |>
       "Mean arrival delay: ", round(mean_delay, 2), " min"
     )
   )
-this
+# this
 ```
+> O gráfico interativo só aparece na versão html. Tentar renderizá-lo como pdf gera um erro no processo.
 
 
 ## Momento de compilação
