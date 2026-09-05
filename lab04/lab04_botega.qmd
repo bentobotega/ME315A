@@ -1,0 +1,99 @@
+---
+title: "Laboratório IV"
+author: "Bento Rabello Botega (186461)"
+format: pdf
+---
+
+## 1.
+
+```{r}
+library("readxl")
+library("tidyverse")
+```
+
+## 2.
+
+```{r}
+fname = "../datasets/WDIEXCEL.xlsx"
+
+file.exists(fname)
+```
+
+## 3.
+
+```{r}
+countries <- read_excel(fname, sheet="Country")
+
+str(countries)
+```
+
+## 4.
+
+```{r}
+sel_countries <- countries |> filter(`Short Name` %in% c("Afghanistan", "Brazil", "Cuba", "Denmark", "Eswatini"))
+
+sel_countries
+```
+
+## 5.e 6.
+
+```{r}
+# WDI <- read_excel(fname)
+# A linha de código tradicional é muito pesada para o processamento extremamente limitado do Posit Cloud lidar, por isso, produzi e importei uma versão `.csv` da planilha desejada usando python.
+
+process_chunk <- function(chunk, pos) {
+  chunk %>%
+    filter(`Indicator Code` == "SP.DYN.CBRT.IN") %>%
+    select(`Country Code`, `Indicator Code`, `1960`:`2018`)
+}
+
+WDI <- read_csv_chunked(
+  file = "../datasets/WDIEXCEL_Data.csv",
+  callback = DataFrameCallback$new(process_chunk),
+  chunk_size = 10000
+)
+
+WDI
+```
+
+## 7. e 8.
+
+```{r}
+WDI_long <- WDI |>
+  pivot_longer(
+    cols = `1960`:`2018`,
+    names_to = "YEAR",
+    values_to = "SP.DYN.CBRT"
+  ) |>
+  mutate(
+    YEAR = as.integer(YEAR),
+    SP.DYN.CBRT = as.numeric(str_replace(SP.DYN.CBRT, ",", "."))
+  )
+WDI_long
+```
+
+## 9. e 10.
+
+```{r}
+sel_data <- sel_countries |>
+  inner_join(WDI_long, by="Country Code") |>
+  select(`Country Code`, `Short Name`, YEAR, SP.DYN.CBRT) |> # Pede  `SP.DYN.CBRT.IN`, dou seus valores em `VALUE`
+  arrange(`Country Code`, YEAR) # Desnecessário, os dados já estavam ordenados.
+
+str(sel_data)
+```
+
+## 11.
+
+```{r}
+library("ggplot2")
+ggplot(sel_data, aes(x=YEAR, y=SP.DYN.CBRT, color=`Short Name`)) +
+  geom_line()
+```
+
+## Momento de compilação
+
+```{r}
+Sys.setenv(TZ = "America/Sao_Paulo")
+Sys.time()
+```
