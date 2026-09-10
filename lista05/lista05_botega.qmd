@@ -139,3 +139,10 @@ WHERE DNO == 20
 SELECT COUNT(DISTINCT DNO)
 FROM EMPLOYEE
 ```
+
+# Momento de compilação
+
+```{r}
+Sys.setenv(TZ = "America/Sao_Paulo")
+Sys.time()
+```
