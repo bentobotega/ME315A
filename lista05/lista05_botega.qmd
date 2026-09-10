@@ -1,0 +1,141 @@
+---
+title: "Lista V"
+author: "Bento Rabello Botega (186461)"
+format: pdf
+---
+
+# Inicialização
+
+```{r}
+library(DBI)
+library(RSQLite)
+
+CON <- dbConnect(RSQLite::SQLite(), "../datasets/me315.sqlite")
+```
+
+# Respostas
+
+## Sala de aula
+
+### 1.
+
+```{sql connection=CON}
+SELECT FEE, FEE + 1.5, FEE + 1, FEE * 2, FEE / 2.0
+FROM PRESERVE
+WHERE STATE = 'AZ'
+```
+
+### 2.
+
+```{sql connection=CON}
+SELECT PNAME, ACRES, ACRES / 2.0, ACRES / 2
+FROM PRESERVE
+WHERE STATE = 'MT'
+```
+
+> Divisão por inteiro retorna apenas a parte inteira da divisão, não o valor exato como a divisão por float.
+
+## Hands-On
+
+### 1.
+
+```{sql connection=CON}
+SELECT PNAME, ACRES, ACRES * 1.2
+FROM PRESERVE
+```
+
+### 2.
+
+Como comentário, as colunas definidas por `AS`, as aliases, podem ser utilizadas em `ORDER_BY` porém não em `WHERE`.
+
+```{sql connection=CON}
+SELECT PNAME, ACRES, ACRES / 3.0 AS ADJUSTED_ACRES 
+FROM PRESERVE
+```
+
+### 3.
+
+```{sql connection=CON}
+SELECT PNAME, FEE, (FEE + 50) / 2.0 AS ADJUSTED_FEE
+FROM PRESERVE
+```
+### 4.
+
+```{sql connection=CON}
+SELECT AVG(ACRES) AS MEAN_ACRES, MIN(ACRES) AS MIN_ACRES, MAX(ACRES) AS MAX_ACRES
+FROM PRESERVE
+WHERE STATE = 'AZ'
+```
+
+### 5.
+
+```{sql connection=CON}
+SELECT MIN(PNAME) AS FIRST_NAME
+FROM PRESERVE
+-- ORDER BY PNAME
+-- LIMIT 1
+```
+
+### 6.
+
+
+```{sql connection=CON}
+SELECT COUNT(DISTINCT FEE) AS DISTINCT_FEES
+FROM PRESERVE
+WHERE FEE != 0
+```
+
+### 7.
+
+```{sql connection=CON}
+SELECT COUNT(PNAME) AS NAMES, COUNT(DISTINCT PNAME) AS DISTINCT_NAMES
+FROM PRESERVE
+```
+> Todos nomes são distintos, uma vez que os dois conjuntos tem mesma contagem e nomes distintos são subconjunto de nomes.
+
+### 8.
+
+```{sql connection=CON}
+SELECT AVG(ACRES * 0.02) AS MEAN_NEW_FEE
+FROM PRESERVE
+WHERE STATE = 'AZ'
+```
+
+### 9.
+
+```{sql connection=CON}
+SELECT ENO, ENAME, SALARY AS OLDSALARY, SALARY * 1.10 AS NEWSALARY
+FROM EMPLOYEE
+ORDER BY NEWSALARY
+```
+
+### 10.
+
+```{sql connection=CON}
+SELECT ENO, ENAME, SALARY AS OLDSALARY, SALARY * 1.10 AS NEWSALARY
+FROM EMPLOYEE
+WHERE SALARY * 1.10 > 2000
+ORDER BY NEWSALARY
+```
+
+### 11.
+
+```{sql connection=CON}
+SELECT SUM(SALARY), AVG(SALARY), MAX(SALARY), MIN(SALARY)
+FROM EMPLOYEE
+```
+
+### 12.
+
+```{sql connection=CON}
+SELECT COUNT(*)
+FROM EMPLOYEE
+WHERE DNO == 20
+```
+
+### 13.
+
+```{sql connection=CON}
+SELECT COUNT(DISTINCT DNO)
+FROM EMPLOYEE
+```
