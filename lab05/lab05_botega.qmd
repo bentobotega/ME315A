@@ -1,0 +1,118 @@
+---
+title: "Laboratório V"
+author: "Bento Rabello Botega (186461)"
+format: html
+---
+
+## Inicialização
+
+```{r}
+library(tidyverse)
+library(leaflet)
+```
+
+## Código
+
+```{r}
+analisa_aeronave <- function (tail_number, arquivo) {
+  # Função que filtra chunks para conter apenas aeronaves desejadas.
+  filter_airplane <- function(data, idx) {
+    data |>
+      filter(TAIL_NUMBER == tail_number)
+  }
+  
+  # Lendo o csv de forma chunkada.
+  airplane <- read_csv_chunked(
+    file = arquivo,
+    callback = DataFrameCallback$new(filter_airplane),
+    chunk_size = 100000,
+    col_types = cols()
+  )
+  
+  # Produzindo tabela processada.
+  airplane_table <- airplane |>
+    mutate(
+      SCHEDULED_DEPARTURE = as.numeric(SCHEDULED_DEPARTURE),
+      date = make_datetime(YEAR, MONTH, DAY, SCHEDULED_DEPARTURE %/% 100, SCHEDULED_DEPARTURE %% 100), # %/% é divisão inteira e %% é resto. Dividindo por 100, horários como 2045 se tornam 20 (horas) e 45 (minutos).
+      avg_speed = ifelse(AIR_TIME > 0, DISTANCE / (AIR_TIME/60), NA)
+    ) |>
+    arrange(date)
+  
+  # Tabela com dados dos aeroportos
+  airports <- read_csv("../datasets/airports.csv")
+ 
+  # Arranjando as cordenadas pelo cruzamento de tabelas.
+  coordinates <- airplane_table |>
+    inner_join(airports, by = c("ORIGIN_AIRPORT" = "IATA_CODE")) |>
+    inner_join(
+      airports, 
+      by = c("DESTINATION_AIRPORT" = "IATA_CODE"), 
+      suffix = c("_start", "_end")
+    )
+  
+  # Criando uma paleta de cores para a velocidade média (do amarelo ao vermelho escuro)
+  palette <- colorNumeric(
+    palette = "YlOrRd", 
+    domain = coordinates$avg_speed,
+    na.color = "gray"
+  )
+
+  # Criando o mapa
+  map <- leaflet() |>
+    addTiles() |>
+    addCircleMarkers(
+      data = airports |> filter(IATA_CODE %in% c(coordinates$ORIGIN_AIRPORT, coordinates$DESTINATION_AIRPORT)),
+      lng = ~LONGITUDE, lat = ~LATITUDE,
+      popup = ~paste0("<b>", AIRPORT, "</b> (", IATA_CODE, ")<br>", CITY),
+      radius = 4, color = "darkblue", fillOpacity = 0.8
+    )
+
+  # Desenhando os trajetos e colorindo com base na velocidade
+  for (i in seq_len(nrow(coordinates))) {
+    flight <- coordinates[i, ]
+    
+    lcolor <- palette(flight$avg_speed)
+    
+    map <- map |>
+      addPolylines(
+        lng = c(flight$LONGITUDE_start, flight$LONGITUDE_end),
+        lat = c(flight$LATITUDE_start, flight$LATITUDE_end),
+        weight = 3,
+        color = lcolor, 
+        opacity = 0.6,
+        popup = paste0(
+          "<b>Data/Hora:</b> ", flight$date, "<br>",
+          "<b>Voo:</b> ", flight$ORIGIN_AIRPORT, " ➔ ", flight$DESTINATION_AIRPORT, "<br>",
+          "<b>Velocidade Média:</b> ", round(flight$avg_speed, 1), " mph"
+        )
+      )
+  }
+
+  # Adiciona uma legenda de cores ao mapa
+  map <- map |>
+    addLegend(
+      pal = palette, 
+      values = coordinates$avg_speed, 
+      title = "Velocidade Média (mph)",
+      position = "bottomright"
+    )
+  
+  list(
+    tabela = airplane_table,
+    mapa = map
+  )
+}
+```
+
+```{r}
+test <- analisa_aeronave("N431WN", "../datasets/flights.csv.zip")
+test$tabela
+test$mapa
+```
+
+## Momento de compilação
+
+```{r}
+Sys.setenv(TZ = "America/Sao_Paulo")
+Sys.time()
+```
