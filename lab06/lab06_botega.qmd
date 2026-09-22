@@ -64,9 +64,9 @@ dbGetQuery(conn, "SELECT DISTINCT Country FROM customers WHERE LENGTH(Country) =
 ```{r}
 dbGetQuery(conn, paste(
   "SELECT Name FROM customers",
-  "INNER JOIN invoices on invoices.CustomerId=customers.CustomerId",
-  "INNER JOIN invoice_items on invoice_items.InvoiceId=invoices.InvoiceId",
-  "INNER JOIN tracks on tracks.TrackId=invoice_items.TrackId",
+  "INNER JOIN invoices ON invoices.CustomerId=customers.CustomerId",
+  "INNER JOIN invoice_items ON invoice_items.InvoiceId=invoices.InvoiceId",
+  "INNER JOIN tracks ON tracks.TrackId=invoice_items.TrackId",
   "WHERE Country = 'Brazil'"
 ))
 ```
