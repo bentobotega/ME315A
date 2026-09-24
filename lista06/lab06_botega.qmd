@@ -1,0 +1,133 @@
+---
+title: "Lista VI"
+author: "Bento Rabello Botega (186461)"
+format: pdf
+---
+
+## Inicialização
+
+```{r}
+library(DBI)
+library(RSQLite)
+
+# Conecta/Cria o arquivo
+con <- dbConnect(RSQLite::SQLite(), "../datasets/me315.sqlite")
+```
+
+### 1.
+
+```{sql connection=con}
+SELECT STATE, MIN(ACRES) FROM PRESERVE
+GROUP BY STATE
+```
+
+### 2.
+
+```{sql connection=con}
+SELECT STATE, MAX(ACRES) FROM PRESERVE
+WHERE ACRES <= 10000
+GROUP BY STATE
+```
+
+### 3.
+
+```{sql connection=con}
+SELECT STATE, MAX(ACRES) FROM PRESERVE
+WHERE ACRES <= 10000
+GROUP BY STATE
+ORDER BY ACRES DESC
+```
+
+### 4.
+
+```{sql connection=con}
+SELECT STATE, MAX(ACRES) FROM PRESERVE
+WHERE ACRES < 25000
+GROUP BY STATE
+```
+
+### 5.
+
+```{sql connection=con}
+SELECT STATE, MIN(ACRES) FROM PRESERVE
+WHERE ACRES < 100
+GROUP BY STATE
+```
+
+### 6.
+
+```{sql connection=con}
+SELECT PNAME, MAX(ACRES) FROM PRESERVE
+WHERE ACRES > 1000
+GROUP BY STATE
+HAVING MAX(ACRES) < 25000
+```
+
+### 7.
+
+```{sql connection=con}
+SELECT STATE, SUM(ACRES) FROM PRESERVE
+GROUP BY STATE
+HAVING SUM(ACRES) >= 10000 AND ACRES <= 50000
+```
+
+### 8.
+
+```{sql connection=con}
+SELECT STATE, AVG(ACRES) FROM PRESERVE
+GROUP BY STATE
+ORDER BY AVG(ACRES) DESC
+```
+
+```{sql connection=con}
+SELECT STATE, AVG(ACRES) FROM PRESERVE
+GROUP BY STATE
+ORDER BY AVG(ACRES) DESC
+LIMIT 1
+```
+
+### 9.
+
+```{sql connection=con}
+SELECT DNO, AVG(SALARY) FROM EMPLOYEE
+GROUP BY DNO
+```
+
+### 10.
+
+```{sql connection=con}
+SELECT DNO, AVG(SALARY), SUM(SALARY), MAX(SALARY), MIN(SALARY) FROM EMPLOYEE
+GROUP BY DNO
+```
+
+### 11.
+
+```{sql connection=con}
+SELECT DNO, COUNT(ENO) FROM EMPLOYEE
+WHERE DNO != 40
+GROUP BY DNO
+```
+
+### 12.
+
+```{sql connection=con}
+SELECT DNO, COUNT(ENO) FROM EMPLOYEE
+GROUP BY DNO
+HAVING COUNT(ENO) >= 2
+```
+
+### 13.
+
+```{sql connection=con}
+SELECT STATE, SUM(ACRES) AS Total FROM PRESERVE
+GROUP BY STATE
+UNION ALL
+SELECT "Total", SUM(ACRES) FROM PRESERVE
+```
+
+## Momento de compilação
+
+```{r}
+Sys.setenv(TZ = "America/Sao_Paulo")
+Sys.time()
+```
