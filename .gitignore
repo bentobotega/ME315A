@@ -7,3 +7,6 @@ datasets/flights.csv.zip
 datasets/WDIEXCEL.xlsx
 datasets/WDIEXCEL_Data.csv
 datasets/uwmadison.sqlite3
+datasets/title.basics0.tsv.gz
+datasets/title.principals0.tsv.gz
+datasets/title.ratings.tsv.gz
